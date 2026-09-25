@@ -79,8 +79,8 @@ footer a{color:inherit}
 var DAY=86400000;
 var MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 var MONTHS_L=['January','February','March','April','May','June','July','August','September','October','November','December'];
-var CHARTS=[['all','All games'],['switch2','Switch 2'],['switch1','Switch 1']];
-var history=null, chart='all', span=60, calY, calM, selDate=null, entries=[];
+var CHARTS=[['switch2','Switch 2'],['switch1','Switch 1']];
+var history=null, chart='switch2', span=60, calY, calM, selDate=null, entries=[];
 
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 function toNum(d){var p=d.split('-').map(Number);return Math.round(Date.UTC(p[0],p[1]-1,p[2])/DAY);}
@@ -158,8 +158,9 @@ function calendar(st){
 function detail(){
   if(!selDate)return '';
   var rec=(history.days||{})[selDate];
-  var body=rec&&rec.top&&rec.top.length
-    ?'<ol class="top">'+rec.top.map(function(g){return '<li>'+esc(g.title)+(g.platform?'<span class="plat">'+platLabel(g.platform)+'</span>':'')+'</li>';}).join('')+'</ol>'
+  var list=rec&&((rec.charts&&rec.charts[chart])||(chart==='all'&&rec.top))||null;
+  var body=list&&list.length
+    ?'<p class="sub" style="margin:0 0 4px">'+esc((CHARTS.filter(function(c){return c[0]===chart;})[0]||['',''])[1])+' top 10</p><ol class="top">'+list.map(function(g){return '<li>'+esc(g.title)+'</li>';}).join('')+'</ol>'
     :'<p class="empty">No chart was recorded this day.</p>';
   return '<div class="panel" style="margin-top:12px" id="detail"><strong>'+nice(toNum(selDate))+', '+selDate.slice(0,4)+'</strong>'+(rec?'<p class="sub" style="margin:2px 0 8px">Checked '+new Date(rec.capturedAt).toLocaleString([], {timeZone:'America/Los_Angeles',hour:'numeric',minute:'2-digit'})+' Pacific</p>':'')+body+'</div>';
 }
@@ -176,8 +177,8 @@ function render(){
   build();
   var st=streaks(), sx=document.getElementById('gscroll'), keepRight=!sx||sx.scrollLeft+sx.clientWidth>=sx.scrollWidth-4, oldLeft=sx?sx.scrollLeft:0;
   var updated=history.updatedAt?new Date(history.updatedAt).toLocaleString([], {timeZone:'America/Los_Angeles',dateStyle:'medium',timeStyle:'short'})+' Pacific':'not yet';
-  document.getElementById('root').innerHTML='<h1>Nintendo eShop #1, US store</h1>'+hero(st)+chartPicker()+gantt(st)+calendar(st)+board(st)+
-    '<footer>Recorded once a day from the US Nintendo eShop best-sellers page, which ranks games by the last three days of sales. Last updated '+esc(updated)+'. Not affiliated with Nintendo.</footer>';
+  document.getElementById('root').innerHTML='<h1>Nintendo eShop #1, Australian store</h1>'+hero(st)+chartPicker()+gantt(st)+calendar(st)+board(st)+
+    '<footer>Recorded once a day from the Nintendo Australia store\'s digital-download charts for Switch 1 and Switch 2. Last updated '+esc(updated)+'. Not affiliated with Nintendo.</footer>';
   var ns=document.getElementById('gscroll');if(ns)ns.scrollLeft=keepRight?ns.scrollWidth:oldLeft;
 }
 
@@ -190,10 +191,10 @@ document.getElementById('root').addEventListener('click',function(e){
 });
 
 fetch('data/history.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json();}).then(function(h){
-  history=h;var keys=Object.keys(h.days||{}).sort();var anchor=keys.length?keys[keys.length-1]:todayStr();
+  history=h;var avail=CHARTS.filter(function(c){return Object.keys(h.days||{}).some(function(d){return h.days[d].no1&&h.days[d].no1[c[0]];});});if(avail.length)chart=avail[0][0];var keys=Object.keys(h.days||{}).sort();var anchor=keys.length?keys[keys.length-1]:todayStr();
   var p=anchor.split('-').map(Number);calY=p[0];calM=p[1]-1;render();
 }).catch(function(err){
-  document.getElementById('root').innerHTML='<h1>Nintendo eShop #1, US store</h1><p class="empty">Couldn\'t load data/history.json ('+esc(err.message)+'). If you opened this file directly from your computer, view it through GitHub Pages instead.</p>';
+  document.getElementById('root').innerHTML='<h1>Nintendo eShop #1, Australian store</h1><p class="empty">Couldn\'t load data/history.json ('+esc(err.message)+'). If you opened this file directly from your computer, view it through GitHub Pages instead.</p>';
 });
 })();
 </script>
