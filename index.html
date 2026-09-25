@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
-<title>eShop Top Game</title>
+<title>STREAK-TENDO - eShop #1 Top Game by Day</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap">
@@ -73,7 +73,23 @@ section{margin-top:44px}
 .empty{color:var(--muted);padding:18px 4px}
 footer{margin-top:40px;color:var(--muted);font-size:.85rem}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-@media (max-width:520px){.grid{gap:3px}.day{border-radius:6px}}
+/* Streak chart: 14 day columns, one row per game */
+.gt{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));gap:2px}
+.gt-day{text-align:center;font-size:.78rem;color:var(--muted);line-height:1.2;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.gt-months{margin-bottom:4px}
+.gt-month{font-size:.8rem;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;border-left:1px solid var(--line);padding-left:4px}
+.gt-month:first-child{border-left:0;padding-left:0}
+.gt-day.now{color:var(--accent);font-weight:800}
+.gt-row{margin-top:12px}
+.gt-name{display:flex;align-items:center;gap:8px;font-size:.9rem;font-weight:600;margin-bottom:5px;min-width:0}
+.gt-name .thumb{width:28px;height:28px;border-radius:6px}
+.gt-name .grow{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gt-cell{grid-row:1;height:26px;background:var(--bg);border-radius:4px}
+.gt-bar{grid-row:1;z-index:1;height:26px;border-radius:7px;color:#fff;font-size:.72rem;font-weight:800;display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden;min-width:0}
+.gt-bar.cut-l{border-top-left-radius:0;border-bottom-left-radius:0}
+.gt-bar.cut-r{border-top-right-radius:0;border-bottom-right-radius:0}
+.icon-btn:disabled{opacity:.35;cursor:default}
+@media (max-width:520px){.grid{gap:3px}.day{border-radius:6px}.gt{gap:1px}.gt-bar{font-size:.62rem}}
 </style>
 </head>
 <body>
@@ -84,7 +100,7 @@ var DAY=86400000;
 var MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 var MONTHS_L=['January','February','March','April','May','June','July','August','September','October','November','December'];
 var CHARTS=[['switch2','Switch 2'],['switch1','Switch 1']];
-var history=null, chart='switch2', span=60, calY, calM, selDate=null, entries=[], images={};
+var history=null, chart='switch2', winEnd=null, WIN=14, calY, calM, selDate=null, entries=[], images={};
 
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 function toNum(d){var p=d.split('-').map(Number);return Math.round(Date.UTC(p[0],p[1]-1,p[2])/DAY);}
@@ -94,6 +110,8 @@ function nice(n){var d=new Date(n*DAY);return MONTHS[d.getUTCMonth()]+' '+d.getU
 function hue(name){var h=0,s=name.toLowerCase();for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return (h*137)%360;}
 function col(name){return 'hsl('+hue(name)+' 55% var(--bar-l))';}
 function stripRank(t,rank){var m=String(t||'').match(/^#?(\d{1,3})[.):]?\s+(.+)$/);return m&&Number(m[1])===rank?m[2]:String(t||'');}
+function cleanList(list){var prev=0;return (list||[]).map(function(g){var t=String(g.title||''),r=prev+1,m=t.match(/^#?(\d{1,3})[.):]?\s+(.+)$/);
+  if(m&&Number(m[1])>prev&&Number(m[1])<=prev+5){r=Number(m[1]);t=m[2];}prev=r;return {rank:r,title:t,image:g.image};});}
 function chartLabel(){return (CHARTS.filter(function(c){return c[0]===chart;})[0]||['',''])[1];}
 
 function art(game,eager){
@@ -104,8 +122,9 @@ function art(game,eager){
 
 function indexImages(){
   images={};var days=history.days||{};
-  Object.keys(history.images||{}).forEach(function(t){images[t]=history.images[t];});
-  Object.keys(days).forEach(function(d){var ch=days[d].charts||{};Object.keys(ch).forEach(function(k){(ch[k]||[]).forEach(function(g){var t=stripRank(g.title,g.rank);if(g.image&&!/^https?:/.test(g.image)&&!images[t])images[t]=g.image;});});});
+  var better=function(t,src){if(!src||/^https?:/.test(src))return;if(!images[t]||(/^data\/art\//.test(src)&&!/^data\/art\//.test(images[t])))images[t]=src;};
+  Object.keys(history.images||{}).forEach(function(t){better(cleanList([{title:t}])[0].title,history.images[t]);better(t,history.images[t]);});
+  Object.keys(days).forEach(function(d){var ch=days[d].charts||{};Object.keys(ch).forEach(function(k){cleanList(ch[k]).forEach(function(g){better(g.title,g.image);});});});
 }
 function build(){
   var days=history.days||{};
@@ -123,7 +142,7 @@ function streaks(){
 function topBar(){
   var days=history.days||{}, avail=CHARTS.filter(function(c){return Object.keys(days).some(function(d){return days[d].no1&&days[d].no1[c[0]];});});
   var seg=avail.length>1?'<div class="seg" role="group" aria-label="Which chart">'+avail.map(function(c){return '<button type="button" data-chart="'+c[0]+'" aria-pressed="'+(chart===c[0])+'">'+c[1]+'</button>';}).join('')+'</div>':'';
-  return '<div class="top-bar"><h1>eShop top game · Australia</h1>'+seg+'</div>';
+  return '<div class="top-bar"><h1>STREAK-TENDO - eShop #1 Top Game by Day</h1>'+seg+'</div>';
 }
 
 function hero(st){
@@ -134,30 +153,6 @@ function hero(st){
   return '<div class="hero"><p class="hero-label">'+esc(label)+'</p><div class="hero-art">'+art(last.game,true)+'</div>'+
     '<div class="hero-game">'+esc(last.game)+'</div>'+
     '<p class="hero-meta">'+(last.len===1?'First day on top':last.len+' days in a row, since '+nice(last.start))+'</p>'+(last.len>1?'<div class="pips" aria-hidden="true">'+pips+'</div>':'')+'</div>';
-}
-
-function gantt(st){
-  if(entries.length<2)return '';
-  var lastN=Math.max(toNum(entries[entries.length-1].date),toNum(todayStr()));
-  var firstN=toNum(entries[0].date);
-  var from=span==='all'?firstN:Math.max(firstN,lastN-span+1);
-  var days=lastN-from+1, dw=days>120?6:days>60?10:16, pad=8, top=26, rowH=42;
-  var vis=st.filter(function(s){return s.end>=from;});
-  var rows=[];vis.forEach(function(s){if(rows.indexOf(s.game)<0)rows.push(s.game);});
-  var W=pad*2+days*dw+160, H=top+rows.length*rowH+8, svg='';
-  for(var n=from;n<=lastN;n++){var d=new Date(n*DAY);if(d.getUTCDate()===1||n===from){var x=pad+(n-from)*dw;
-    svg+='<line x1="'+x+'" y1="18" x2="'+x+'" y2="'+H+'" stroke="var(--line)"/><text x="'+(x+3)+'" y="13" font-size="11" fill="var(--muted)">'+MONTHS[d.getUTCMonth()]+(d.getUTCMonth()===0||n===from?' '+d.getUTCFullYear():'')+'</text>';}}
-  rows.forEach(function(g,i){
-    var y=top+i*rowH, mine=vis.filter(function(s){return s.game===g;}), fx=pad+(Math.max(mine[0].start,from)-from)*dw;
-    svg+='<text x="'+fx+'" y="'+(y+12)+'" font-size="12" font-weight="600" fill="var(--ink)">'+esc(g)+'</text>';
-    mine.forEach(function(s){var a=Math.max(s.start,from),x=pad+(a-from)*dw,w=(s.end-a+1)*dw-2;
-      svg+='<rect x="'+x+'" y="'+(y+17)+'" width="'+Math.max(w,3)+'" height="18" rx="4" fill="'+col(g)+'"><title>'+esc(g)+': '+s.len+' day'+(s.len>1?'s':'')+', '+nice(s.start)+(s.len>1?' to '+nice(s.end):'')+'</title></rect>';
-      if(s.len>1&&w>=22)svg+='<text x="'+(x+5)+'" y="'+(y+30)+'" font-size="11" font-weight="800" fill="#fff">'+s.len+'</text>';});
-  });
-  var t=toNum(todayStr());if(t>=from){var tx=pad+(t-from)*dw+dw/2;svg+='<line x1="'+tx+'" y1="18" x2="'+tx+'" y2="'+H+'" stroke="var(--accent)" stroke-width="2" stroke-dasharray="3 3"/>';}
-  function b(v,l){return '<button type="button" data-span="'+v+'" aria-pressed="'+(span===v)+'">'+l+'</button>';}
-  return '<section><h2>Timeline</h2><p class="sub">Each bar is a run at the top. Numbers are days held.</p><div class="seg spaced">'+b(30,'30 days')+b(60,'60 days')+b(180,'6 months')+b('all','All')+'</div>'+
-    '<div class="panel scroll" id="gscroll"><svg width="'+W+'" height="'+H+'" role="img" aria-label="Timeline of top games">'+svg+'</svg></div></section>';
 }
 
 function calendar(){
@@ -174,34 +169,56 @@ function calendar(){
 
 function detail(){
   if(!selDate)return '';
-  var rec=(history.days||{})[selDate], list=rec&&rec.charts&&rec.charts[chart];
+  var rec=(history.days||{})[selDate], list=rec&&rec.charts&&cleanList(rec.charts[chart]);
   var body=list&&list.length
-    ?'<ul class="list">'+list.map(function(g){var t=stripRank(g.title,g.rank);return '<li><span class="rank">'+g.rank+'</span><span class="thumb">'+art(t)+'</span><span class="grow">'+esc(t)+'</span></li>';}).join('')+'</ul>'
+    ?'<ul class="list">'+list.map(function(g){var t=g.title;return '<li><span class="rank">'+g.rank+'</span><span class="thumb">'+art(t)+'</span><span class="grow">'+esc(t)+'</span></li>';}).join('')+'</ul>'
     :'<p class="empty">No chart was recorded this day.</p>';
   return '<div class="panel" style="margin-top:12px" id="detail"><strong>'+esc(chartLabel())+' top 10, '+nice(toNum(selDate))+'</strong>'+body+'</div>';
 }
 
-function board(st){
+function streakChart(st){
   if(!entries.length)return '';
-  var topS=st.slice().sort(function(a,b){return b.len-a.len||b.end-a.end;}).slice(0,10), last=st[st.length-1], t=toNum(todayStr());
-  var rows=topS.map(function(s){var live=s===last&&s.end>=t-1;
-    return '<li><span class="thumb">'+art(s.game)+'</span><span class="grow">'+esc(s.game)+(live?'<span class="tag">Active</span>':'')+'<div class="dates">'+nice(s.start)+(s.len>1?' to '+nice(s.end):'')+', '+new Date(s.end*DAY).getUTCFullYear()+'</div></span><span class="len">'+s.len+'<small> d</small></span></li>';}).join('');
-  return '<section><h2>Longest streaks</h2><p class="sub">Consecutive days at the top. A day with no recording ends a streak.</p><div class="panel"><ul class="list">'+rows+'</ul></div></section>';
+  var latest=Math.max(toNum(entries[entries.length-1].date),toNum(todayStr()));
+  var end=winEnd===null?latest:Math.min(winEnd,latest), start=end-WIN+1, t=toNum(todayStr());
+  var vis=st.filter(function(s){return s.end>=start&&s.start<=end;});
+  var current=st[st.length-1].game, rows=[];
+  vis.slice().sort(function(a,b){return b.end-a.end;}).forEach(function(s){if(rows.indexOf(s.game)<0)rows.push(s.game);});
+  rows.sort(function(a,b){return (b===current)-(a===current);});
+  var head='<div class="gt gt-months">', runStart=start;
+  for(var n=start;n<=end+1;n++){
+    if(n>end||(n>start&&new Date(n*DAY).getUTCDate()===1)){
+      head+='<div class="gt-month" style="grid-column:'+(runStart-start+1)+' / '+(n-start+1)+'">'+(n-runStart>=2?MONTHS_L[new Date(runStart*DAY).getUTCMonth()]:'')+'</div>';
+      runStart=n;
+    }
+  }
+  head+='</div><div class="gt">';
+  for(var m=start;m<=end;m++){head+='<div class="gt-day'+(m===t?' now':'')+'">'+new Date(m*DAY).getUTCDate()+'</div>';}
+  head+='</div>';
+  var cells='';for(var i=0;i<WIN;i++)cells+='<div class="gt-cell" style="grid-column:'+(i+1)+'"></div>';
+  var body=rows.length?rows.map(function(g){
+    var bars=vis.filter(function(s){return s.game===g;}).map(function(s){
+      var a=Math.max(s.start,start),b=Math.min(s.end,end),cls='gt-bar'+(s.start<start?' cut-l':'')+(s.end>end?' cut-r':'');
+      return '<div class="'+cls+'" style="grid-column:'+(a-start+1)+' / '+(b-start+2)+';background:hsl('+hue(g)+' 55% 42%)" title="'+esc(g)+': '+s.len+' day'+(s.len>1?'s':'')+', '+nice(s.start)+(s.len>1?' to '+nice(s.end):'')+'">'+s.len+'d</div>';}).join('');
+    var live=g===current&&st[st.length-1].end>=t-1;
+    return '<div class="gt-row"><div class="gt-name"><span class="thumb">'+art(g)+'</span><span class="grow">'+esc(g)+(live?'<span class="tag">On top now</span>':'')+'</span></div><div class="gt">'+cells+bars+'</div></div>';
+  }).join(''):'<p class="empty">No days recorded in these two weeks.</p>';
+  var label=nice(start)+' – '+nice(end)+', '+new Date(end*DAY).getUTCFullYear();
+  var nav='<div class="cal-head"><button type="button" class="icon-btn" data-win="-1" aria-label="Previous two weeks"'+(start<=toNum(entries[0].date)?' disabled':'')+'>‹</button><strong>'+label+'</strong><button type="button" class="icon-btn" data-win="1" aria-label="Next two weeks"'+(end>=latest?' disabled':'')+'>›</button></div>';
+  return '<section><h2>Streaks</h2><p class="sub">Each bar is a run at the top. The number is the full length of that run.</p><div class="panel">'+nav+head+body+'</div></section>';
 }
 
 function render(){
   build();
-  var st=streaks(), sx=document.getElementById('gscroll'), keepRight=!sx||sx.scrollLeft+sx.clientWidth>=sx.scrollWidth-4, oldLeft=sx?sx.scrollLeft:0;
+  var st=streaks();
   var updated=history.updatedAt?new Date(history.updatedAt).toLocaleString([], {timeZone:'America/Los_Angeles',dateStyle:'medium',timeStyle:'short'})+' Pacific':'not yet';
-  document.getElementById('root').innerHTML=topBar()+hero(st)+calendar()+gantt(st)+board(st)+
+  document.getElementById('root').innerHTML=topBar()+hero(st)+calendar()+streakChart(st)+
     '<footer>Checked once a day from the Nintendo Australia store\'s digital-download charts. Last updated '+esc(updated)+'. Not affiliated with Nintendo.</footer>';
-  var ns=document.getElementById('gscroll');if(ns)ns.scrollLeft=keepRight?ns.scrollWidth:oldLeft;
 }
 
 document.getElementById('root').addEventListener('click',function(e){
-  var el=e.target.closest('[data-span],[data-cal],[data-day],[data-chart]');if(!el)return;
+  var el=e.target.closest('[data-win],[data-cal],[data-day],[data-chart]');if(!el)return;
   if(el.dataset.chart){chart=el.dataset.chart;render();}
-  else if(el.dataset.span){span=el.dataset.span==='all'?'all':Number(el.dataset.span);render();}
+  else if(el.dataset.win){var latest=Math.max(toNum(entries[entries.length-1].date),toNum(todayStr()));winEnd=Math.min((winEnd===null?latest:winEnd)+Number(el.dataset.win)*WIN,latest);if(winEnd===latest)winEnd=null;render();}
   else if(el.dataset.cal){calM+=Number(el.dataset.cal);if(calM<0){calM=11;calY--;}if(calM>11){calM=0;calY++;}render();}
   else if(el.dataset.day){selDate=selDate===el.dataset.day?null:el.dataset.day;render();var dt=document.getElementById('detail');if(dt)dt.scrollIntoView({behavior:'smooth',block:'nearest'});}
 });
@@ -212,7 +229,7 @@ fetch('data/history.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw ne
   var keys=Object.keys(h.days||{}).sort(), anchor=keys.length?keys[keys.length-1]:todayStr();
   var p=anchor.split('-').map(Number);calY=p[0];calM=p[1]-1;render();
 }).catch(function(err){
-  document.getElementById('root').innerHTML='<h1>eShop top game · Australia</h1><p class="empty">Couldn\'t load the data ('+esc(err.message)+').</p>';
+  document.getElementById('root').innerHTML='<h1>STREAK-TENDO - eShop #1 Top Game by Day</h1><p class="empty">Couldn\'t load the data ('+esc(err.message)+').</p>';
 });
 })();
 </script>
