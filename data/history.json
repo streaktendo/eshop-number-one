@@ -7,7 +7,7 @@
   "timezone": "America/Los_Angeles",
   "days": {
     "2026-09-25": {
-      "capturedAt": "2026-09-25T17:17:18.706Z",
+      "capturedAt": "2026-09-25T17:34:18.737Z",
       "no1": {
         "switch1": "Minecraft",
         "switch2": "Minecraft Dungeons II Deluxe Edition"
@@ -23,17 +23,17 @@
           },
           {
             "rank": 2,
-            "title": "(English) Pokémon FireRed Version",
-            "url": "https://ec.nintendo.com/AU/en/titles/70010000118614",
-            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/f/a/fa215e42ab1979155b1b659797005424e2fb5068eab5a35818ccd2e59d891d54_1787803486.jpg",
-            "image": "data/images/english-pokemon-firered-version.jpg"
-          },
-          {
-            "rank": 3,
             "title": "Mario + Rabbids Sparks of Hope Gold Edition",
             "url": "https://ec.nintendo.com/AU/en/bundles/70070000014382",
             "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/5/f/5fba48700f29be012c0448ee94caf2569663906214cf7f32a9239073cad4a40f_1786339107.jpg",
             "image": "data/images/mario-rabbids-sparks-of-hope-gold-edition.jpg"
+          },
+          {
+            "rank": 3,
+            "title": "(English) Pokémon FireRed Version",
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000118614",
+            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/f/a/fa215e42ab1979155b1b659797005424e2fb5068eab5a35818ccd2e59d891d54_1787803486.jpg",
+            "image": "data/images/english-pokemon-firered-version.jpg"
           },
           {
             "rank": 4,
@@ -160,7 +160,7 @@
       }
     }
   },
-  "updatedAt": "2026-09-25T17:17:18.706Z",
+  "updatedAt": "2026-09-25T17:34:18.737Z",
   "images": {
     "Minecraft": "data/images/minecraft.jpg",
     "(English) Pokémon FireRed Version": "data/images/english-pokemon-firered-version.jpg",
