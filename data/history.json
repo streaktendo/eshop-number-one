@@ -2,5 +2,78 @@
   "region": "US",
   "source": "https://www.nintendo.com/us/store/games/best-sellers/",
   "timezone": "America/Los_Angeles",
-  "days": {}
+  "days": {
+    "2026-09-25": {
+      "capturedAt": "2026-09-25T16:29:17.806Z",
+      "method": "page tiles",
+      "no1": {
+        "all": "The Legend of Zelda: Ocarina of Time",
+        "switch2": "Stardew Valley: Nintendo Switch 2 Edition",
+        "switch1": "Nintendo Switch Sports"
+      },
+      "top": [
+        {
+          "rank": 1,
+          "title": "The Legend of Zelda: Ocarina of Time",
+          "url": "https://www.nintendo.com/store/products/the-legend-of-zelda-ocarina-of-time-switch-2/",
+          "platform": null
+        },
+        {
+          "rank": 2,
+          "title": "Fire Emblem: Fortune’s Weave",
+          "url": "https://www.nintendo.com/store/products/fire-emblem-fortunes-weave-switch-2/",
+          "platform": null
+        },
+        {
+          "rank": 3,
+          "title": "Fire Emblem: Fortune’s Weave",
+          "url": "https://www.nintendo.com/us/store/products/fire-emblem-fortunes-weave-switch-2/",
+          "platform": null
+        },
+        {
+          "rank": 4,
+          "title": "The Witcher 3: Wild Hunt — Remastered",
+          "url": "https://www.nintendo.com/us/store/products/the-witcher-3-wild-hunt-remastered-switch-2/",
+          "platform": null
+        },
+        {
+          "rank": 5,
+          "title": "FINAL FANTASY VII REMAKE INTERGRADE",
+          "url": "https://www.nintendo.com/us/store/products/final-fantasy-vii-remake-intergrade-switch-2/",
+          "platform": null
+        },
+        {
+          "rank": 6,
+          "title": "Super Mario Party Jamboree",
+          "url": "https://www.nintendo.com/us/store/products/super-mario-party-jamboree-switch/",
+          "platform": null
+        },
+        {
+          "rank": 7,
+          "title": "Meccha Chameleon",
+          "url": "https://www.nintendo.com/us/store/products/meccha-chameleon-switch-2/",
+          "platform": null
+        },
+        {
+          "rank": 8,
+          "title": "Minecraft",
+          "url": "https://www.nintendo.com/us/store/products/minecraft-switch/",
+          "platform": null
+        },
+        {
+          "rank": 9,
+          "title": "Nintendo Switch Sports",
+          "url": "https://www.nintendo.com/us/store/products/nintendo-switch-sports-switch/",
+          "platform": "switch1"
+        },
+        {
+          "rank": 10,
+          "title": "DOOM",
+          "url": "https://www.nintendo.com/us/store/products/doom-switch/",
+          "platform": null
+        }
+      ]
+    }
+  },
+  "updatedAt": "2026-09-25T16:29:17.806Z"
 }
