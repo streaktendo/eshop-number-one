@@ -1,0 +1,47 @@
+name: "Record eShop #1"
+
+on:
+  schedule:
+    - cron: "17 16 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: record-eshop
+  cancel-in-progress: false
+
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Read today's chart
+        run: node scripts/scrape.mjs
+      - name: Save to the repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/history.json
+          if git diff --cached --quiet; then
+            echo "No change to save."
+          else
+            git commit -m "Record eShop #1 for $(TZ=America/Los_Angeles date +%F)"
+            git push
+          fi
+      - name: Keep the page snapshot when something breaks
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-snapshot
+          path: debug/
+          if-no-files-found: ignore
