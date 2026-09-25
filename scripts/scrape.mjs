@@ -27,6 +27,35 @@ const today = new Intl.DateTimeFormat('en-CA', {
   timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit',
 }).format(new Date());
 
+// Some chart pages put the rank number in front of the name ("1 Minecraft").
+// Only strip it when it matches the rank, so titles like "51 Worldwide Games" survive.
+function stripRank(title, rank) {
+  const m = title.match(/^#?(\d{1,3})[.):]?\s+(.+)$/);
+  return m && Number(m[1]) === rank ? m[2] : title;
+}
+
+// Saves a game's image into data/images once, and reuses it after that.
+const IMAGE_DIR = path.resolve('data/images');
+async function saveImage(context, url, title) {
+  const slug = title.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 80) || 'game';
+  await fs.mkdir(IMAGE_DIR, { recursive: true });
+  const existing = (await fs.readdir(IMAGE_DIR)).find((f) => f.replace(/\.[^.]+$/, '') === slug);
+  if (existing) return `data/images/${existing}`;
+  if (!url) return null;
+  if (dryRun) return url;
+  try {
+    const res = await context.request.get(url, { timeout: 30_000 });
+    const type = res.headers()['content-type'] || '';
+    if (!res.ok() || !type.startsWith('image/')) return null;
+    const ext = type.includes('png') ? 'png' : type.includes('webp') ? 'webp' : type.includes('avif') ? 'avif' : 'jpg';
+    await fs.writeFile(path.join(IMAGE_DIR, `${slug}.${ext}`), await res.body());
+    return `data/images/${slug}.${ext}`;
+  } catch {
+    return null;
+  }
+}
+
 function cleanTitle(t) {
   return String(t || '').replace(/[™®©]/g, '').replace(/\s+/g, ' ').trim();
 }
@@ -57,8 +86,17 @@ function extract(scope) {
         (a.getAttribute('title') || '').trim() ||
         (img && img.alt.trim()) || '';
       if (!title || title.length > 150 || junk.test(title)) continue;
+      let image = '';
+      const pic = card.querySelector('img');
+      if (pic) {
+        const set = pic.getAttribute('srcset') || pic.getAttribute('data-srcset') || '';
+        const biggest = set ? set.split(',').map((x) => x.trim().split(/\s+/)[0]).filter(Boolean).pop() : '';
+        image = pic.getAttribute('data-src') || pic.getAttribute('data-original') || pic.getAttribute('data-lazy') || biggest || pic.currentSrc || pic.src || '';
+        if (image.startsWith('data:')) image = '';
+        if (image) image = new URL(image, location.href).href;
+      }
       seen.add(href);
-      out.push({ title, url: href });
+      out.push({ title, url: href, image });
     }
     if (out.length >= 5) return out;
   }
@@ -86,7 +124,7 @@ async function readChart(context, chart) {
     await page.waitForTimeout(1500);
 
     const games = (await page.evaluate(extract, CHART_SELECTOR))
-      .map((g) => ({ title: cleanTitle(g.title), url: g.url }))
+      .map((g, i) => ({ title: stripRank(cleanTitle(g.title), i + 1), url: g.url, imageUrl: g.image }))
       .filter((g) => g.title);
 
     if (games.length < MIN_GAMES) {
@@ -95,7 +133,8 @@ async function readChart(context, chart) {
       return null;
     }
     const top = games.slice(0, KEEP).map((g, i) => ({ rank: i + 1, ...g }));
-    top.forEach((g) => console.log(`${String(g.rank).padStart(2)}. ${g.title}`));
+    for (const g of top) g.image = await saveImage(context, g.imageUrl, g.title);
+    top.forEach((g) => console.log(`${String(g.rank).padStart(2)}. ${g.title}${g.image ? '' : '   (no image found)'}`));
     return top;
   } catch (err) {
     await saveDebug(page, chart.id, String(err && err.message || err));
@@ -135,6 +174,10 @@ async function main() {
   const history = JSON.parse(await fs.readFile(DATA_FILE, 'utf8'));
   history.days = history.days || {};
   history.days[today] = record;
+  history.images = history.images || {};
+  for (const list of Object.values(record.charts)) {
+    for (const g of list) if (g.image && !g.image.startsWith('http')) history.images[g.title] = g.image;
+  }
   history.days = Object.fromEntries(Object.entries(history.days).sort(([a], [b]) => a.localeCompare(b)));
   history.updatedAt = record.capturedAt;
   await fs.writeFile(DATA_FILE, JSON.stringify(history, null, 2) + '\n');
