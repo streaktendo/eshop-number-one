@@ -7,118 +7,180 @@
   "timezone": "America/Los_Angeles",
   "days": {
     "2026-09-25": {
-      "capturedAt": "2026-09-25T16:43:49.316Z",
+      "capturedAt": "2026-09-25T17:17:18.706Z",
       "no1": {
-        "switch1": "1 Minecraft",
-        "switch2": "1 Minecraft Dungeons II Deluxe Edition"
+        "switch1": "Minecraft",
+        "switch2": "Minecraft Dungeons II Deluxe Edition"
       },
       "charts": {
         "switch1": [
           {
             "rank": 1,
-            "title": "1 Minecraft",
-            "url": "https://ec.nintendo.com/AU/en/titles/70010000000963"
+            "title": "Minecraft",
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000000963",
+            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/a/2/a28a81253e919298beab2295e39a56b7a5140ef15abdb56135655e5c221b2a3a_1785738518.jpg",
+            "image": "data/images/minecraft.jpg"
           },
           {
             "rank": 2,
-            "title": "2 (English) Pokémon FireRed Version",
-            "url": "https://ec.nintendo.com/AU/en/titles/70010000118614"
+            "title": "(English) Pokémon FireRed Version",
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000118614",
+            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/f/a/fa215e42ab1979155b1b659797005424e2fb5068eab5a35818ccd2e59d891d54_1787803486.jpg",
+            "image": "data/images/english-pokemon-firered-version.jpg"
           },
           {
             "rank": 3,
-            "title": "3 Mario + Rabbids Sparks of Hope Gold Edition",
-            "url": "https://ec.nintendo.com/AU/en/bundles/70070000014382"
+            "title": "Mario + Rabbids Sparks of Hope Gold Edition",
+            "url": "https://ec.nintendo.com/AU/en/bundles/70070000014382",
+            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/5/f/5fba48700f29be012c0448ee94caf2569663906214cf7f32a9239073cad4a40f_1786339107.jpg",
+            "image": "data/images/mario-rabbids-sparks-of-hope-gold-edition.jpg"
           },
           {
             "rank": 4,
-            "title": "4 Mario + Rabbids Kingdom Battle - Gold Edition",
-            "url": "https://ec.nintendo.com/AU/en/bundles/70070000000401"
+            "title": "Mario + Rabbids Kingdom Battle - Gold Edition",
+            "url": "https://ec.nintendo.com/AU/en/bundles/70070000000401",
+            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/e/f/ef0acec40680ebf47edb0eb8afa90daf133e878abc16c72bd3e5be4e68f8cfe9_1786330978.jpg",
+            "image": "data/images/mario-rabbids-kingdom-battle-gold-edition.jpg"
           },
           {
             "rank": 5,
-            "title": "5 Hogwarts Legacy: Digital Deluxe Edition",
-            "url": "https://ec.nintendo.com/AU/en/bundles/70070000019472"
+            "title": "Hogwarts Legacy: Digital Deluxe Edition",
+            "url": "https://ec.nintendo.com/AU/en/bundles/70070000019472",
+            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/8/d/8d6950111fb9a0ece31708dcd6ac893f93c012bc585a6a09dfd986d56ab483d1_1786354448.jpg",
+            "image": "data/images/hogwarts-legacy-digital-deluxe-edition.jpg"
           },
           {
             "rank": 6,
             "title": "7 Mario Kart 8 Deluxe – Booster Course Pass",
-            "url": "https://ec.nintendo.com/AU/en/bundles/70070000013750"
+            "url": "https://ec.nintendo.com/AU/en/bundles/70070000013750",
+            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/4/2/42e2b859c33f28f038f655f44adfea836b6e4bbc941ebf23e310523c26585259_1786338347.jpg",
+            "image": "data/images/7-mario-kart-8-deluxe-booster-course-pass.jpg"
           },
           {
             "rank": 7,
             "title": "8 Well Dweller",
-            "url": "https://ec.nintendo.com/AU/en/titles/70010000100080"
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000100080",
+            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/e/c/ec0096b4065323167735377d8f06066fa765ed9f0c62a54e05e95cf7422db34a_1790157795.jpg",
+            "image": "data/images/8-well-dweller.jpg"
           },
           {
             "rank": 8,
             "title": "9 Minecraft Dungeons II Deluxe Edition",
-            "url": "https://ec.nintendo.com/AU/en/bundles/70070000036346"
+            "url": "https://ec.nintendo.com/AU/en/bundles/70070000036346",
+            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/f/6/f60ee78fc7b29d2557302b888dcc2f9e28aa9c0a6f573acf025488103a5c5ba6_1790083396.jpg",
+            "image": "data/images/9-minecraft-dungeons-ii-deluxe-edition.jpg"
           },
           {
             "rank": 9,
             "title": "10 EA SPORTS FC 27",
-            "url": "https://ec.nintendo.com/AU/en/titles/70010000110118"
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000110118",
+            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/e/0/e08884815dafeff3f8688181eb8766aa78333ae8fd49d7bcdb01a950e3087c1f_1790251295.jpg",
+            "image": "data/images/10-ea-sports-fc-27.jpg"
           },
           {
             "rank": 10,
             "title": "11 Nintendo Switch Sports",
-            "url": "https://ec.nintendo.com/AU/en/titles/70010000049932"
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000049932",
+            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/8/3/83488f4ce9ab2ea076406d1b765767bbb81d57a1550d5379f1e1fb341718403a_1785925446.jpg",
+            "image": "data/images/11-nintendo-switch-sports.jpg"
           }
         ],
         "switch2": [
           {
             "rank": 1,
-            "title": "1 Minecraft Dungeons II Deluxe Edition",
-            "url": "https://ec.nintendo.com/AU/en/bundles/70070000034458"
+            "title": "Minecraft Dungeons II Deluxe Edition",
+            "url": "https://ec.nintendo.com/AU/en/bundles/70070000034458",
+            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/f/6/f60ee78fc7b29d2557302b888dcc2f9e28aa9c0a6f573acf025488103a5c5ba6_1790253796.jpg",
+            "image": "data/images/minecraft-dungeons-ii-deluxe-edition.jpg"
           },
           {
             "rank": 2,
-            "title": "2 Fire Emblem: Fortune's Weave",
-            "url": "https://ec.nintendo.com/AU/en/titles/70010000126930"
+            "title": "Fire Emblem: Fortune's Weave",
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000126930",
+            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/1/5/159bdf6c9f126feb35ae1123c370cf357bcf069fd5dda84d8d0c4f64ae097e40_1789653683.jpg",
+            "image": "data/images/fire-emblem-fortune-s-weave.jpg"
           },
           {
             "rank": 3,
-            "title": "3 FINAL FANTASY VII REMAKE INTERGRADE",
-            "url": "https://ec.nintendo.com/AU/en/titles/70010000101699"
+            "title": "FINAL FANTASY VII REMAKE INTERGRADE",
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000101699",
+            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/4/e/4e51758a913dd23ce9acec4124ae49ce7a4099ecaf4aae536d8ae5fd6843c3ba_1786098288.jpg",
+            "image": "data/images/final-fantasy-vii-remake-intergrade.jpg"
           },
           {
             "rank": 4,
-            "title": "4 Minecraft Dungeons II",
-            "url": "https://ec.nintendo.com/AU/en/titles/70010000110906"
+            "title": "Minecraft Dungeons II",
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000110906",
+            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/9/4/943ac82193671174ecae54dabc8c85897b561153d830d86ac288476d3a9d02e4_1790253314.jpg",
+            "image": "data/images/minecraft-dungeons-ii.jpg"
           },
           {
             "rank": 5,
-            "title": "5 Graveyard Keeper 2",
-            "url": "https://ec.nintendo.com/AU/en/titles/70010000124104"
+            "title": "Graveyard Keeper 2",
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000124104",
+            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/3/6/3654d3c7c10a891b92b2075b12907bd64a8452c587f56738271d79d273fca349_1790096488.jpg",
+            "image": "data/images/graveyard-keeper-2.jpg"
           },
           {
             "rank": 6,
-            "title": "6 Pokémon Pokopia Expansion Pass",
-            "url": "https://ec.nintendo.com/AU/en/bundles/70070000036751"
+            "title": "Pokémon Pokopia Expansion Pass",
+            "url": "https://ec.nintendo.com/AU/en/bundles/70070000036751",
+            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/9/8/98f6f05914a2cb7026a8a2815511e060d55133148ec70ed0c1b77cf828a15dee_1787803459.jpg",
+            "image": "data/images/pokemon-pokopia-expansion-pass.jpg"
           },
           {
             "rank": 7,
-            "title": "7 Meccha Chameleon",
-            "url": "https://ec.nintendo.com/AU/en/titles/70010000135521"
+            "title": "Meccha Chameleon",
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000135521",
+            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/f/3/f3c3a1be1cf1c4a1364293da2040abb264ee4713fd546fb8b3c7f9755a57e1c6_1788968009.jpg",
+            "image": "data/images/meccha-chameleon.jpg"
           },
           {
             "rank": 8,
-            "title": "8 RuneScape: Dragonwilds",
-            "url": "https://ec.nintendo.com/AU/en/titles/70010000111578"
+            "title": "RuneScape: Dragonwilds",
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000111578",
+            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/7/8/783247637f11956b97ef7fb07206bd7e3ab62286289256bab0330994c24985de_1790003602.jpg",
+            "image": "data/images/runescape-dragonwilds.jpg"
           },
           {
             "rank": 9,
             "title": "10 LEGO Batman: Legacy of the Dark Knight Deluxe Edition Upgrade",
-            "url": "https://ec.nintendo.com/AU/en/bundles/70070000036664"
+            "url": "https://ec.nintendo.com/AU/en/bundles/70070000036664",
+            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/b/0/b02db898f49874a1ac2e3f30823c68dbafb68552224a6e8506af7d9a380bc9c5_1789646855.jpg",
+            "image": "data/images/10-lego-batman-legacy-of-the-dark-knight-deluxe-edition-upgrade.jpg"
           },
           {
             "rank": 10,
             "title": "12 Mario Kart World",
-            "url": "https://ec.nintendo.com/AU/en/titles/70010000096802"
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000096802",
+            "imageUrl": "https://store.nintendo.com.au/media/catalog/product/cache/55351146f864384e20b16a2043f3a323/5/e/5e2547f766550ce295528c347b5c200272b5d71bf45a791682c96729051ac3d9_1788929239.jpg",
+            "image": "data/images/12-mario-kart-world.jpg"
           }
         ]
       }
     }
   },
-  "updatedAt": "2026-09-25T16:43:49.316Z"
+  "updatedAt": "2026-09-25T17:17:18.706Z",
+  "images": {
+    "Minecraft": "data/images/minecraft.jpg",
+    "(English) Pokémon FireRed Version": "data/images/english-pokemon-firered-version.jpg",
+    "Mario + Rabbids Sparks of Hope Gold Edition": "data/images/mario-rabbids-sparks-of-hope-gold-edition.jpg",
+    "Mario + Rabbids Kingdom Battle - Gold Edition": "data/images/mario-rabbids-kingdom-battle-gold-edition.jpg",
+    "Hogwarts Legacy: Digital Deluxe Edition": "data/images/hogwarts-legacy-digital-deluxe-edition.jpg",
+    "7 Mario Kart 8 Deluxe – Booster Course Pass": "data/images/7-mario-kart-8-deluxe-booster-course-pass.jpg",
+    "8 Well Dweller": "data/images/8-well-dweller.jpg",
+    "9 Minecraft Dungeons II Deluxe Edition": "data/images/9-minecraft-dungeons-ii-deluxe-edition.jpg",
+    "10 EA SPORTS FC 27": "data/images/10-ea-sports-fc-27.jpg",
+    "11 Nintendo Switch Sports": "data/images/11-nintendo-switch-sports.jpg",
+    "Minecraft Dungeons II Deluxe Edition": "data/images/minecraft-dungeons-ii-deluxe-edition.jpg",
+    "Fire Emblem: Fortune's Weave": "data/images/fire-emblem-fortune-s-weave.jpg",
+    "FINAL FANTASY VII REMAKE INTERGRADE": "data/images/final-fantasy-vii-remake-intergrade.jpg",
+    "Minecraft Dungeons II": "data/images/minecraft-dungeons-ii.jpg",
+    "Graveyard Keeper 2": "data/images/graveyard-keeper-2.jpg",
+    "Pokémon Pokopia Expansion Pass": "data/images/pokemon-pokopia-expansion-pass.jpg",
+    "Meccha Chameleon": "data/images/meccha-chameleon.jpg",
+    "RuneScape: Dragonwilds": "data/images/runescape-dragonwilds.jpg",
+    "10 LEGO Batman: Legacy of the Dark Knight Deluxe Edition Upgrade": "data/images/10-lego-batman-legacy-of-the-dark-knight-deluxe-edition-upgrade.jpg",
+    "12 Mario Kart World": "data/images/12-mario-kart-world.jpg"
+  }
 }
