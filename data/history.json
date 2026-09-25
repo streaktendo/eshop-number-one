@@ -5,5 +5,120 @@
     "switch2": "https://store.nintendo.com.au/au/digital-downloads/charts?platform=switch2"
   },
   "timezone": "America/Los_Angeles",
-  "days": {}
+  "days": {
+    "2026-09-25": {
+      "capturedAt": "2026-09-25T16:43:49.316Z",
+      "no1": {
+        "switch1": "1 Minecraft",
+        "switch2": "1 Minecraft Dungeons II Deluxe Edition"
+      },
+      "charts": {
+        "switch1": [
+          {
+            "rank": 1,
+            "title": "1 Minecraft",
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000000963"
+          },
+          {
+            "rank": 2,
+            "title": "2 (English) Pokémon FireRed Version",
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000118614"
+          },
+          {
+            "rank": 3,
+            "title": "3 Mario + Rabbids Sparks of Hope Gold Edition",
+            "url": "https://ec.nintendo.com/AU/en/bundles/70070000014382"
+          },
+          {
+            "rank": 4,
+            "title": "4 Mario + Rabbids Kingdom Battle - Gold Edition",
+            "url": "https://ec.nintendo.com/AU/en/bundles/70070000000401"
+          },
+          {
+            "rank": 5,
+            "title": "5 Hogwarts Legacy: Digital Deluxe Edition",
+            "url": "https://ec.nintendo.com/AU/en/bundles/70070000019472"
+          },
+          {
+            "rank": 6,
+            "title": "7 Mario Kart 8 Deluxe – Booster Course Pass",
+            "url": "https://ec.nintendo.com/AU/en/bundles/70070000013750"
+          },
+          {
+            "rank": 7,
+            "title": "8 Well Dweller",
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000100080"
+          },
+          {
+            "rank": 8,
+            "title": "9 Minecraft Dungeons II Deluxe Edition",
+            "url": "https://ec.nintendo.com/AU/en/bundles/70070000036346"
+          },
+          {
+            "rank": 9,
+            "title": "10 EA SPORTS FC 27",
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000110118"
+          },
+          {
+            "rank": 10,
+            "title": "11 Nintendo Switch Sports",
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000049932"
+          }
+        ],
+        "switch2": [
+          {
+            "rank": 1,
+            "title": "1 Minecraft Dungeons II Deluxe Edition",
+            "url": "https://ec.nintendo.com/AU/en/bundles/70070000034458"
+          },
+          {
+            "rank": 2,
+            "title": "2 Fire Emblem: Fortune's Weave",
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000126930"
+          },
+          {
+            "rank": 3,
+            "title": "3 FINAL FANTASY VII REMAKE INTERGRADE",
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000101699"
+          },
+          {
+            "rank": 4,
+            "title": "4 Minecraft Dungeons II",
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000110906"
+          },
+          {
+            "rank": 5,
+            "title": "5 Graveyard Keeper 2",
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000124104"
+          },
+          {
+            "rank": 6,
+            "title": "6 Pokémon Pokopia Expansion Pass",
+            "url": "https://ec.nintendo.com/AU/en/bundles/70070000036751"
+          },
+          {
+            "rank": 7,
+            "title": "7 Meccha Chameleon",
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000135521"
+          },
+          {
+            "rank": 8,
+            "title": "8 RuneScape: Dragonwilds",
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000111578"
+          },
+          {
+            "rank": 9,
+            "title": "10 LEGO Batman: Legacy of the Dark Knight Deluxe Edition Upgrade",
+            "url": "https://ec.nintendo.com/AU/en/bundles/70070000036664"
+          },
+          {
+            "rank": 10,
+            "title": "12 Mario Kart World",
+            "url": "https://ec.nintendo.com/AU/en/titles/70010000096802"
+          }
+        ]
+      }
+    }
+  },
+  "updatedAt": "2026-09-25T16:43:49.316Z"
 }
