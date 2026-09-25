@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>eShop #1 Tracker</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap">
+<style>
+:root{--bg:#E9EEF5;--surface:#FFFFFF;--ink:#172033;--muted:#5B6578;--line:#D3DAE5;--accent:#2B48D6;--accent-ink:#FFFFFF;--bar-l:52%;--tint:.2;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1422;--surface:#172033;--ink:#E8EDF6;--muted:#9AA5B8;--line:#2A3550;--accent:#8EA2FF;--accent-ink:#0E1422;--bar-l:62%;--tint:.28;}}
+:root[data-theme="dark"]{--bg:#0E1422;--surface:#172033;--ink:#E8EDF6;--muted:#9AA5B8;--line:#2A3550;--accent:#8EA2FF;--accent-ink:#0E1422;--bar-l:62%;--tint:.28;}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Bricolage Grotesque",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased}
+#root{max-width:960px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:1rem;font-weight:600;margin:0 0 28px;color:var(--muted)}
+h2{font-size:1.35rem;font-weight:800;margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:0 0 14px;font-size:.95rem}
+section{margin-top:40px}
+.hero-game{font-size:clamp(2.2rem,8.5vw,4.6rem);font-weight:800;line-height:.98;letter-spacing:-.03em;margin:6px 0 14px;overflow-wrap:anywhere}
+.hero-meta{color:var(--muted);font-size:1rem;margin:0}
+.pips{display:flex;flex-wrap:wrap;gap:5px;margin:16px 0 0}
+.pip{width:16px;height:16px;border-radius:4px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin-bottom:12px}
+.seg button{border:0;background:transparent;color:var(--ink);font:inherit;font-size:.9rem;padding:6px 14px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cal-head strong{font-size:1.1rem}
+.icon-btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;width:40px;height:40px;font:inherit;font-size:1.1rem;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.dow{font-size:.75rem;color:var(--muted);text-align:center;padding-bottom:2px}
+.day{min-height:74px;border-radius:8px;border:1px solid var(--line);background:var(--surface);padding:4px 5px;text-align:left;font:inherit;color:var(--ink);cursor:pointer;display:flex;flex-direction:column;gap:2px;position:relative;overflow:hidden}
+.day.blank{visibility:hidden}
+.day .n{font-size:.78rem;font-weight:600}
+.day .g{font-size:.68rem;line-height:1.15;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+.day .band{position:absolute;left:0;right:0;top:0;height:4px}
+.day.today{outline:2px solid var(--accent);outline-offset:-2px}
+.day.sel{box-shadow:inset 0 0 0 2px var(--ink)}
+table{border-collapse:collapse;width:100%}
+td{padding:9px 6px;border-top:1px solid var(--line);vertical-align:top}
+tr:first-child td{border-top:0}
+td.len{font-weight:800;font-size:1.25rem;width:1%;white-space:nowrap}
+td.sw{width:1%}
+.sw span{display:block;width:12px;height:12px;border-radius:3px;margin-top:5px}
+.dates{color:var(--muted);font-size:.85rem}
+.tag{display:inline-block;font-size:.72rem;font-weight:600;background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:2px}
+form{display:grid;gap:10px}
+label{font-size:.85rem;color:var(--muted);display:grid;gap:4px}
+input,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
+textarea{min-height:120px;font-size:.9rem}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.btn{font:inherit;font-weight:600;border-radius:10px;padding:10px 16px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.danger{color:#C4312B}
+details{margin-top:14px}
+summary{cursor:pointer;font-weight:600}
+.status{min-height:1.4em;font-size:.9rem;color:var(--muted);margin:0}
+.empty{color:var(--muted);padding:18px 4px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+@media (max-width:520px){.day{min-height:58px}.day .g{-webkit-line-clamp:2;font-size:.62rem}}
+.day.nodata .n{color:var(--muted);font-weight:400}
+ol.top{margin:0;padding-left:1.6em}
+ol.top li{padding:5px 0;border-top:1px solid var(--line)}
+ol.top li:first-child{border-top:0;font-weight:800}
+.plat{color:var(--muted);font-size:.8rem;margin-left:6px}
+footer{margin-top:40px;color:var(--muted);font-size:.85rem}
+footer a{color:inherit}
+</style>
+</head>
+<body>
+<div id="root"><p class="sub">Loading chart history…</p></div>
+<script>
+(function(){
+var DAY=86400000;
+var MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var MONTHS_L=['January','February','March','April','May','June','July','August','September','October','November','December'];
+var CHARTS=[['all','All games'],['switch2','Switch 2'],['switch1','Switch 1']];
+var history=null, chart='all', span=60, calY, calM, selDate=null, entries=[];
+
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function toNum(d){var p=d.split('-').map(Number);return Math.round(Date.UTC(p[0],p[1]-1,p[2])/DAY);}
+function toStr(n){return new Date(n*DAY).toISOString().slice(0,10);}
+function todayStr(){return new Intl.DateTimeFormat('en-CA',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());}
+function nice(n){var d=new Date(n*DAY);return MONTHS[d.getUTCMonth()]+' '+d.getUTCDate();}
+function hue(name){var h=0,s=name.toLowerCase();for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return (h*137)%360;}
+function col(name,a){return 'hsl('+hue(name)+' 62% var(--bar-l)'+(a?' / var(--tint)':'')+')';}
+function platLabel(p){return p==='switch2'?'Switch 2':p==='switch1'?'Switch 1':'';}
+
+function build(){
+  var days=history.days||{};
+  entries=Object.keys(days).sort().filter(function(d){return days[d].no1&&days[d].no1[chart];}).map(function(d){return {date:d,game:days[d].no1[chart]};});
+}
+function byDate(){var m={};entries.forEach(function(e){m[e.date]=e.game;});return m;}
+function streaks(){
+  var out=[],cur=null;
+  entries.forEach(function(e){var n=toNum(e.date);
+    if(cur&&cur.game===e.game&&n===cur.end+1)cur.end=n;else{cur={game:e.game,start:n,end:n};out.push(cur);}});
+  out.forEach(function(s){s.len=s.end-s.start+1;});
+  return out;
+}
+
+function hero(st){
+  if(!entries.length)return '<section style="margin-top:0"><p class="hero-meta">No days recorded yet</p><div class="hero-game">Waiting for the first daily check</div><p class="hero-meta">The first entry appears after the scheduled job runs, or after you run it by hand from the Actions tab.</p></section>';
+  var t=toNum(todayStr()), last=st[st.length-1], isToday=last.end===t;
+  var label=isToday?'#1 today':'Most recent #1 ('+nice(last.end)+')';
+  var pips='';for(var i=0;i<Math.min(last.len,60);i++)pips+='<span class="pip" style="background:'+col(last.game)+'"></span>';
+  return '<section style="margin-top:0"><p class="hero-meta">'+esc(label)+'</p><div class="hero-game">'+esc(last.game)+'</div>'+
+    '<p class="hero-meta">'+(last.len===1?'First day on top':last.len+' days in a row, since '+nice(last.start))+'</p><div class="pips" aria-hidden="true">'+pips+'</div></section>';
+}
+
+function chartPicker(){
+  var days=history.days||{}, avail=CHARTS.filter(function(c){return Object.keys(days).some(function(d){return days[d].no1&&days[d].no1[c[0]];});});
+  if(avail.length<2)return '';
+  return '<div class="seg" style="margin-top:22px" role="group" aria-label="Which chart">'+avail.map(function(c){return '<button type="button" data-chart="'+c[0]+'" aria-pressed="'+(chart===c[0])+'">'+c[1]+'</button>';}).join('')+'</div>';
+}
+
+function gantt(st){
+  if(!entries.length)return '';
+  var lastN=Math.max(toNum(entries[entries.length-1].date),toNum(todayStr()));
+  var firstN=toNum(entries[0].date);
+  var from=span==='all'?firstN:Math.max(firstN,lastN-span+1);
+  var days=lastN-from+1, dw=days>120?6:days>60?10:16, pad=8, top=26, rowH=42;
+  var vis=st.filter(function(s){return s.end>=from;});
+  var rows=[];vis.forEach(function(s){if(rows.indexOf(s.game)<0)rows.push(s.game);});
+  var W=pad*2+days*dw+160, H=top+rows.length*rowH+8, svg='';
+  for(var n=from;n<=lastN;n++){var d=new Date(n*DAY);if(d.getUTCDate()===1||n===from){var x=pad+(n-from)*dw;
+    svg+='<line x1="'+x+'" y1="18" x2="'+x+'" y2="'+H+'" stroke="var(--line)"/><text x="'+(x+3)+'" y="13" font-size="11" fill="var(--muted)">'+MONTHS[d.getUTCMonth()]+(d.getUTCMonth()===0||n===from?' '+d.getUTCFullYear():'')+'</text>';}}
+  rows.forEach(function(g,i){
+    var y=top+i*rowH, mine=vis.filter(function(s){return s.game===g;}), fx=pad+(Math.max(mine[0].start,from)-from)*dw;
+    svg+='<text x="'+fx+'" y="'+(y+12)+'" font-size="12" font-weight="600" fill="var(--ink)">'+esc(g)+'</text>';
+    mine.forEach(function(s){var a=Math.max(s.start,from),x=pad+(a-from)*dw,w=(s.end-a+1)*dw-2;
+      svg+='<rect x="'+x+'" y="'+(y+17)+'" width="'+Math.max(w,3)+'" height="18" rx="4" fill="'+col(g)+'"><title>'+esc(g)+': '+s.len+' day'+(s.len>1?'s':'')+', '+nice(s.start)+(s.len>1?' to '+nice(s.end):'')+'</title></rect>';
+      if(s.len>1&&w>=22)svg+='<text x="'+(x+5)+'" y="'+(y+30)+'" font-size="11" font-weight="800" fill="#fff">'+s.len+'</text>';});
+  });
+  var t=toNum(todayStr());if(t>=from){var tx=pad+(t-from)*dw+dw/2;svg+='<line x1="'+tx+'" y1="18" x2="'+tx+'" y2="'+H+'" stroke="var(--accent)" stroke-width="2" stroke-dasharray="3 3"/>';}
+  function b(v,l){return '<button type="button" data-span="'+v+'" aria-pressed="'+(span===v)+'">'+l+'</button>';}
+  return '<section><h2>Timeline</h2><p class="sub">Each bar is a run at #1. Numbers are days held.</p><div class="seg">'+b(30,'30 days')+b(60,'60 days')+b(180,'6 months')+b('all','All')+'</div>'+
+    '<div class="panel scroll" id="gscroll"><svg width="'+W+'" height="'+H+'" role="img" aria-label="Timeline of #1 games">'+svg+'</svg></div></section>';
+}
+
+function calendar(st){
+  var map=byDate(), first=new Date(Date.UTC(calY,calM,1)), startDow=first.getUTCDay(), dim=new Date(Date.UTC(calY,calM+1,0)).getUTCDate(), t=todayStr();
+  var runLen={};st.forEach(function(s){for(var n=s.start;n<=s.end;n++)runLen[toStr(n)]=n-s.start+1;});
+  var h='<div class="grid">';['S','M','T','W','T','F','S'].forEach(function(d){h+='<div class="dow">'+d+'</div>';});
+  for(var i=0;i<startDow;i++)h+='<div class="day blank"></div>';
+  for(var d=1;d<=dim;d++){var ds=calY+'-'+String(calM+1).padStart(2,'0')+'-'+String(d).padStart(2,'0'),g=map[ds];
+    h+='<button type="button" class="day'+(g?'':' nodata')+(ds===t?' today':'')+(ds===selDate?' sel':'')+'" data-day="'+ds+'"'+(g?' style="background:'+col(g,1)+'"':'')+' aria-label="'+ds+(g?': '+esc(g):': no data')+'">'+
+      (g?'<span class="band" style="background:'+col(g)+'"></span>':'')+'<span class="n">'+d+(g&&runLen[ds]>1?' <span style="font-weight:400;color:var(--muted)">· day '+runLen[ds]+'</span>':'')+'</span>'+(g?'<span class="g">'+esc(g)+'</span>':'')+'</button>';}
+  h+='</div>';
+  return '<section><h2>Calendar</h2><p class="sub">Tap a day to see that day\'s top 10.</p><div class="panel"><div class="cal-head"><button type="button" class="icon-btn" data-cal="-1" aria-label="Previous month">‹</button><strong>'+MONTHS_L[calM]+' '+calY+'</strong><button type="button" class="icon-btn" data-cal="1" aria-label="Next month">›</button></div>'+h+'</div>'+detail()+'</section>';
+}
+
+function detail(){
+  if(!selDate)return '';
+  var rec=(history.days||{})[selDate];
+  var body=rec&&rec.top&&rec.top.length
+    ?'<ol class="top">'+rec.top.map(function(g){return '<li>'+esc(g.title)+(g.platform?'<span class="plat">'+platLabel(g.platform)+'</span>':'')+'</li>';}).join('')+'</ol>'
+    :'<p class="empty">No chart was recorded this day.</p>';
+  return '<div class="panel" style="margin-top:12px" id="detail"><strong>'+nice(toNum(selDate))+', '+selDate.slice(0,4)+'</strong>'+(rec?'<p class="sub" style="margin:2px 0 8px">Checked '+new Date(rec.capturedAt).toLocaleString([], {timeZone:'America/Los_Angeles',hour:'numeric',minute:'2-digit'})+' Pacific</p>':'')+body+'</div>';
+}
+
+function board(st){
+  if(!entries.length)return '';
+  var topS=st.slice().sort(function(a,b){return b.len-a.len||b.end-a.end;}).slice(0,10), last=st[st.length-1], t=toNum(todayStr());
+  var rows=topS.map(function(s){var live=s===last&&s.end>=t-1;
+    return '<tr><td class="sw"><span style="background:'+col(s.game)+'"></span></td><td>'+esc(s.game)+(live?'<span class="tag">Active</span>':'')+'<div class="dates">'+nice(s.start)+(s.len>1?' to '+nice(s.end):'')+', '+new Date(s.end*DAY).getUTCFullYear()+'</div></td><td class="len">'+s.len+'<span style="font-size:.8rem;font-weight:400;color:var(--muted)"> d</span></td></tr>';}).join('');
+  return '<section><h2>Longest streaks</h2><p class="sub">Consecutive recorded days at #1. A day with no recording ends a streak.</p><div class="panel"><table>'+rows+'</table></div></section>';
+}
+
+function render(){
+  build();
+  var st=streaks(), sx=document.getElementById('gscroll'), keepRight=!sx||sx.scrollLeft+sx.clientWidth>=sx.scrollWidth-4, oldLeft=sx?sx.scrollLeft:0;
+  var updated=history.updatedAt?new Date(history.updatedAt).toLocaleString([], {timeZone:'America/Los_Angeles',dateStyle:'medium',timeStyle:'short'})+' Pacific':'not yet';
+  document.getElementById('root').innerHTML='<h1>Nintendo eShop #1, US store</h1>'+hero(st)+chartPicker()+gantt(st)+calendar(st)+board(st)+
+    '<footer>Recorded once a day from the US Nintendo eShop best-sellers page, which ranks games by the last three days of sales. Last updated '+esc(updated)+'. Not affiliated with Nintendo.</footer>';
+  var ns=document.getElementById('gscroll');if(ns)ns.scrollLeft=keepRight?ns.scrollWidth:oldLeft;
+}
+
+document.getElementById('root').addEventListener('click',function(e){
+  var el=e.target.closest('[data-span],[data-cal],[data-day],[data-chart]');if(!el)return;
+  if(el.dataset.chart){chart=el.dataset.chart;render();}
+  else if(el.dataset.span){span=el.dataset.span==='all'?'all':Number(el.dataset.span);render();}
+  else if(el.dataset.cal){calM+=Number(el.dataset.cal);if(calM<0){calM=11;calY--;}if(calM>11){calM=0;calY++;}render();}
+  else if(el.dataset.day){selDate=selDate===el.dataset.day?null:el.dataset.day;render();var dt=document.getElementById('detail');if(dt)dt.scrollIntoView({behavior:'smooth',block:'nearest'});}
+});
+
+fetch('data/history.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json();}).then(function(h){
+  history=h;var keys=Object.keys(h.days||{}).sort();var anchor=keys.length?keys[keys.length-1]:todayStr();
+  var p=anchor.split('-').map(Number);calY=p[0];calM=p[1]-1;render();
+}).catch(function(err){
+  document.getElementById('root').innerHTML='<h1>Nintendo eShop #1, US store</h1><p class="empty">Couldn\'t load data/history.json ('+esc(err.message)+'). If you opened this file directly from your computer, view it through GitHub Pages instead.</p>';
+});
+})();
+</script>
+</body>
+</html>
